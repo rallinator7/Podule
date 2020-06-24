@@ -1,0 +1,35 @@
+version: '3'
+services:
+  auth:
+    build:
+      context: .\podule-services\auth-api\.
+      dockerfile: dockerfile
+    ports:
+      - "3000:3000"
+    networks: 
+      - podule
+  locker:
+    build:
+      context: .\podule-services\locker-api\.
+      dockerfile: dockerfile
+    ports:
+      - "4000:4000"
+    networks: 
+      - podule
+  mongo:
+    image: mongo
+    restart: always
+    ports:
+        - "27017:27017"
+    volumes:
+      - mongostorage:/db/data
+      - mongolog:/var/log/mongodb
+    networks: 
+      - podule
+volumes: 
+  mongostorage:
+  mongolog:
+networks:
+  podule:
+    driver: "bridge"
+  

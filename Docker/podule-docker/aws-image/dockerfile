@@ -1,0 +1,17 @@
+FROM mcr.microsoft.com/dotnet/core/aspnet
+
+LABEL version="1.0"
+LABEL description="This is our base AWS Image for service containers"
+LABEL maintainer "rallinator7@gmail.com"
+
+ENV NODE_ENV staging
+
+RUN useradd --create-home --shell /bin/bash podule && \
+mkdir /home/podule/.aws &&\
+apt-get update && \
+apt-get install vim iputils-ping net-tools telnet -y
+
+
+COPY --chown=podule:podule ./.aws  /home/podule/.aws
+
+USER podule

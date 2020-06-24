@@ -1,0 +1,11 @@
+FROM podule-aws-image
+
+LABEL version="1.0"
+LABEL description="This is our base image for the locker service"
+LABEL maintainer "rallinator7@gmail.com"
+
+ENV NODE_ENV staging
+
+COPY --chown=podule:podule ./publish /home/podule/publish
+
+ENTRYPOINT /home/podule/publish/AuthApi
